@@ -20,6 +20,7 @@ class Watering:
             self.watering_tool.water()
             sleep(self.water_interval)
 
+        
     def run(self, house_plant):
         while True:
             self.waterFor(house_plant)
@@ -30,6 +31,7 @@ def args():
     parser.add_argument("-m", "--measure_interval", help="Interval for measuring moisture. It's second.", type=int)
     parser.add_argument("-w", "--water_interval", help="Interval for watering to house plants. It's second.", type=int)
     return parser.parse_args()
+
 if __name__ == "__main__":
     args = args()
     
