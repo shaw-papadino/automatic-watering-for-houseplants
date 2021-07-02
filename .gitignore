@@ -1,0 +1,4 @@
+__pycache__/
+result/
+.DS_Store
+nohup.out

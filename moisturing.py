@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from soil_moisture_sensor import SoilMoistureSensor
 
 import csv
@@ -6,6 +8,7 @@ from time import sleep
 import argparse
 
 class Moisturing:
+
     def __init__(self, soil_moisture, measure_interval):
         self.soil_moisture = soil_moisture
         self.measure_interval = measure_interval
@@ -15,13 +18,16 @@ class Moisturing:
         finish_date = today + datetime.timedelta(days=measure_days)
         header = ["time", "moisture"]
         print("csvに記録を始めます")
-        with open(f"{str(today)}_{str(finish_date)}.csv", "w") as f:
+        with open(f"./result/{str(today)}_{str(finish_date)}.csv", "w", buffering=1) as f:
             writer = csv.writer(f)
             writer.writerow(header)
             while datetime.date.today() <= finish_date:
                 writer.writerow([f"{datetime.datetime.now():%Y-%m-%d %H:%M:%S}", self.soil_moisture.measure()])
                 sleep(self.measure_interval)
         print("記録を終了します")
+
+    def translate(value, fromLow, fromHigh, toLow=0, toHigh=100):
+        return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow
 
 def args():
     parser = argparse.ArgumentParser()
